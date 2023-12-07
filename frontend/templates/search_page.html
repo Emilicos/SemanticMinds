@@ -8,7 +8,7 @@
         {% load static %}
         <title>Search</title>
         <link rel="stylesheet" href="{% static 'css/output.css' %}">
-        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
@@ -16,21 +16,7 @@
         <!-- Navbar -->
         {% include 'navbar.html' %}
         <div class = "p-8 flex flex-col gap-y-4">
-        <!-- Search Form -->
-            <form action="return false;" id="searchForm" class="flex items-center">
-                <div class="flex items-center gap-x-4 w-full max-w-4xl relative">
-                    <input
-                    type="text"
-                    name="searchInput"
-                    id="searchInput"
-                    class="w-full py-3 pl-4 pr-8 text-white placeholder-white bg-slate-700 border-2 border-slate-300 rounded-xl"
-                    required="false"
-                    />
-                    <button type="submit" class = "relative right-0 top-0">
-                        <i class="fa-solid fa-magnifying-glass absolute right-0 top-[-8px] mr-8 text-[#8ab4f8] cursor-pointer"></i>
-                    </button>
-                </div>
-            </form>
+        <!-- Search Form -- >
             <!-- Search Results -->
             <p> Around {{pagination.total}} result (showing {{pagination.per_page}} per page)</p>
 
@@ -40,10 +26,10 @@
                 {% for item in api_data %}
                     <div class="flex flex-col gap-y-4">
                         <div class="flex flex-col gap-y-2">
-                            <a href="{{item.company_uri.value}}" class="text-2xl font-bold text-blue-500">{{item.company_name.value}}</a>
+                            <a href="{% url 'companyDetail' uri=item.company_name.value|cut:" " %}" class="text-2xl font-bold text-blue-500">{{item.company_name.value}}</a>
                             <p class="text-lg text-gray-500">{{item.company_uri.value}}</p>
                         </div>
-                        <p class="text-lg text-gray-500">{{item.description}}</p>
+                        <p class="text-lg text-gray-500">{{item.description.value}}</p>
                     </div>
                 {% endfor %}
             {% endif %}
