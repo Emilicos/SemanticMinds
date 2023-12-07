@@ -10,7 +10,7 @@ BASE_URL = "http://localhost:9999/blazegraph/namespace/kb/sparql"
 # <BASE-URL>/search/?q=<KEYWORD>&page=<NO-OF-PAGE>
 def search(request):
     search = request.GET.get('q', '')
-    page = request.GET.get('page', '')
+    page = request.GET.get('page', '1')
 
     query = f"""
     prefix :         <http://semminds.com/data/>
