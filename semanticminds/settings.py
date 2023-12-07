@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'api',
+    'frontend',
 ]
 
 MIDDLEWARE = [
@@ -116,6 +118,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# This is the directory for storing `collectstatic` results.
+# This shouldn't be included in your Git repository.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# You can use this directory to store project-wide static files.
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
