@@ -26,9 +26,9 @@
             </div>
         </div>
         <!-- Search Results -->
-        <p> Around {{api_data|length}} result</p>
+        <p> Around {{pagination.total}} result (showing {{pagination.per_page}} per page)</p>
 
-        {% if api_data|length == 0 %} 
+        {% if pagination.total == 0 %} 
             <p> No results found </p>
         {% else %}
             {% for item in api_data %}
@@ -41,5 +41,14 @@
                 </div>
             {% endfor %}
         {% endif %}
+        <div class = "flex gap-x-4">
+            {% for i in range %}
+                {% if i == pagination.current_page %}
+                    <a class="text-2xl font-bold text-blue-500"> {{i}} </a>
+                {% else %}
+                    <a href="?page={{i}}" class="text-2xl font-bold text-gray-500">{{i}}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
 </body>

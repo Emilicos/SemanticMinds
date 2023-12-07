@@ -40,10 +40,50 @@ def search(request):
         "format":"json"
     }
     r = requests.post(BASE_URL, params=params).json()
+    
+    # Currently still havent found the best way to do this, but this works for now (pagination related)
+    
+    pagination_query = f"""
+    prefix :         <http://semminds.com/data/>
+    prefix class:    <http://semminds.com/class/>
+    prefix property: <http://semminds.com/property#>
+
+    select ?company_uri ?company_name (GROUP_CONCAT(?keyword;separator=", ") as ?keywords)
+    where {{
+        {{
+            ?company_uri rdf:type class:Company .
+            ?company_uri rdfs:label ?company_name .
+        }}
+        OPTIONAL
+        {{
+            ?company_uri property:keyword ?keyword .
+        }}
+        FILTER (contains(lcase(?company_name), lcase("{search}")) || contains(lcase(?keyword), lcase("{search}")))
+    }}
+    GROUP BY ?company_uri ?company_name
+    """
+
+    pagination_params = {
+        "query": pagination_query,
+        "format":"json"
+    }
+    
+    r_pagination = requests.post(BASE_URL, params=pagination_params).json()
+    
     # print(r)
     # print(query)
-
-    return JsonResponse(r["results"]["bindings"], safe=False)
+    
+    total = len(r_pagination["results"]["bindings"])
+    
+    return JsonResponse({
+        "data": r["results"]["bindings"],
+        "pagination": {
+            "total": total,
+            "current_page": int(page),
+            "per_page": limit,
+            "last_page": int(total / limit) + 1,
+        }
+    }, safe=False)
 
 
 # Connect local data with remote data with format

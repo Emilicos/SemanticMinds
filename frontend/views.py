@@ -12,8 +12,6 @@ def homepage(request):
 def searchpage(request):
     search = request.GET.get('q', '')
     page = request.GET.get('page', 1)
-    limit = 10
-    offset = (int(page) - 1) * limit
 
     params = {
         "q": search,
@@ -21,9 +19,7 @@ def searchpage(request):
     }
     
     response = requests.get(f'{API_URL}/search/', params=params)
-    context = {'api_data': response.json()}
-
-    print(context.get('api_data'))
+    context = {'api_data': response.json()['data'], 'pagination': response.json()['pagination'], 'range': range(1, response.json()['pagination']['last_page']+1)}
     
     return render(request, 'search_page.html', context)
 
