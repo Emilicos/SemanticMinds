@@ -1,54 +1,75 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    {% load static %}
-    <title>Search</title>
-    <link rel="stylesheet" href="{% static 'css/output.css' %}">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-<body>
-    <!-- Navbar -->
-    {% include 'navbar.html' %}
-    <div class = "p-8 flex flex-col gap-y-4">
-    <!-- Search Form -->
-        <div class="flex items-center">
-            <div class="flex items-center gap-x-4 w-full max-w-4xl">
-                <i class="fa-solid fa-magnifying-glass absolute ml-5 text-white pointer-events-none mt-1"></i>
-                <input
-                type="text"
-                name="searchInput"
-                id="searchInput"
-                class="w-full py-3 pl-12 pr-4 text-white placeholder-white bg-slate-700 border-2 border-slate-300 rounded-xl"
-                required="false"
-                />
-            </div>
-        </div>
-        <!-- Search Results -->
-        <p> Around {{pagination.total}} result (showing {{pagination.per_page}} per page)</p>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-        {% if pagination.total == 0 %} 
-            <p> No results found </p>
-        {% else %}
-            {% for item in api_data %}
-                <div class="flex flex-col gap-y-4">
-                    <div class="flex flex-col gap-y-2">
-                        <a href="{{item.company_uri.value}}" class="text-2xl font-bold text-blue-500">{{item.company_name.value}}</a>
-                        <p class="text-lg text-gray-500">{{item.company_uri.value}}</p>
-                    </div>
-                    <p class="text-lg text-gray-500">{{item.description}}</p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+        {% load static %}
+        <title>Search</title>
+        <link rel="stylesheet" href="{% static 'css/output.css' %}">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <!-- Navbar -->
+        {% include 'navbar.html' %}
+        <div class = "p-8 flex flex-col gap-y-4">
+        <!-- Search Form -->
+            <form action="return false;" id="searchForm" class="flex items-center">
+                <div class="flex items-center gap-x-4 w-full max-w-4xl relative">
+                    <input
+                    type="text"
+                    name="searchInput"
+                    id="searchInput"
+                    class="w-full py-3 pl-4 pr-8 text-white placeholder-white bg-slate-700 border-2 border-slate-300 rounded-xl"
+                    required="false"
+                    />
+                    <button type="submit" class = "relative right-0 top-0">
+                        <i class="fa-solid fa-magnifying-glass absolute right-0 top-[-8px] mr-8 text-[#8ab4f8] cursor-pointer"></i>
+                    </button>
                 </div>
-            {% endfor %}
-        {% endif %}
-        <div class = "flex gap-x-4">
-            {% for i in range %}
-                {% if i == pagination.current_page %}
-                    <a class="text-2xl font-bold text-blue-500"> {{i}} </a>
-                {% else %}
-                    <a href="/search/?q={{search}}&page={{i}}" class="text-2xl font-bold text-gray-500">{{i}}</a>
-                {% endif %}
-            {% endfor %}
+            </form>
+            <!-- Search Results -->
+            <p> Around {{pagination.total}} result (showing {{pagination.per_page}} per page)</p>
+
+            {% if api_data|length == 0 %} 
+                <p> No results found </p>
+            {% else %}
+                {% for item in api_data %}
+                    <div class="flex flex-col gap-y-4">
+                        <div class="flex flex-col gap-y-2">
+                            <a href="{{item.company_uri.value}}" class="text-2xl font-bold text-blue-500">{{item.company_name.value}}</a>
+                            <p class="text-lg text-gray-500">{{item.company_uri.value}}</p>
+                        </div>
+                        <p class="text-lg text-gray-500">{{item.description}}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if pagination.last_page != 1 and api_data|length != 0 %}
+                <div class = "flex gap-x-4">
+                    {% for i in range %}
+                        {% if i == pagination.current_page %}
+                            <a class="text-2xl font-bold text-blue-500"> {{i}} </a>
+                        {% else %}
+                            <a href="/search/?q={{search}}&page={{i}}" class="text-2xl font-bold text-gray-500">{{i}}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
-    </div>
-</body>
+    </body>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            var searchValue = document.getElementById('searchInput').value;
+            
+            var redirectURL = window.location.origin + '/search?q=' + encodeURIComponent(searchValue);
+            
+            window.location.href = redirectURL;
+        });
+    </script>
+</html>
