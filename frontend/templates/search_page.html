@@ -1,0 +1,45 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    {% load static %}
+    <title>Search</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    {% include 'navbar.html' %}
+    <div class = "p-8 flex flex-col gap-y-4">
+    <!-- Search Form -->
+        <div class="flex items-center">
+            <div class="flex items-center gap-x-4 w-full max-w-4xl">
+                <i class="fa-solid fa-magnifying-glass absolute ml-5 text-white pointer-events-none mt-1"></i>
+                <input
+                type="text"
+                name="searchInput"
+                id="searchInput"
+                class="w-full py-3 pl-12 pr-4 text-white placeholder-white bg-slate-700 border-2 border-slate-300 rounded-xl"
+                required="false"
+                />
+            </div>
+        </div>
+        <!-- Search Results -->
+        <p> Around {{api_data|length}} result</p>
+
+        {% if api_data|length == 0 %} 
+            <p> No results found </p>
+        {% else %}
+            {% for item in api_data %}
+                <div class="flex flex-col gap-y-4">
+                    <div class="flex flex-col gap-y-2">
+                        <a href="{{item.company_uri.value}}" class="text-2xl font-bold text-blue-500">{{item.company_name.value}}</a>
+                        <p class="text-lg text-gray-500">{{item.company_uri.value}}</p>
+                    </div>
+                    <p class="text-lg text-gray-500">{{item.description}}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
