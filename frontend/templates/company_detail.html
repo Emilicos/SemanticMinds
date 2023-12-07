@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Details</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+
+<body class="bg-gray-100">
+    {% include 'navbar.html' %}
+
+    <div class="container mx-auto mt-8">
+
+        <div class="bg-white p-8 shadow-md rounded-md">
+            {% if api_data %}
+
+            {% for result in api_data.results.bindings %}
+            <h2></h2>
+            <h1 class="text-2xl font-semibold mb-4">Company Details</h1>
+
+            <div class="grid grid-cols-2 gap-4">
+
+                <div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Company Name</label>
+                        <p class="text-lg font-semibold">{{ result.company_name.value }}</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Description</label>
+                        <p>{{ result.schema.value }}</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Description</label>
+                        <p>{{ result.schema.value }}</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Description</label>
+                        <p>{{ result.schema.value }}</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Description</label>
+                        <p>{{ result.schema.value }}</p>
+                    </div>
+
+
+
+                </div>
+
+
+                <div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Employees</label>
+                        <p>500</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Explore more</label>
+                        <a href="{{ result.item.value }}" class="text-blue-500">Wikidata Page</a>
+                    </div>
+
+                </div>
+
+            </div>
+            
+            {% endfor %}
+            
+
+            {% else %}
+                <h1 class="text-2xl font-semibold mb-4">Invalid Page</h1>
+
+            {% endif %}
+        </div>
+
+    </div>
+
+</body>
+
+</html>
