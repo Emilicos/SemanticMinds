@@ -10,8 +10,9 @@ BASE_URL = "http://localhost:9999/blazegraph/namespace/kb/sparql"
 # <BASE-URL>/search/?q=<KEYWORD>&page=<NO-OF-PAGE>
 def search(request):
     search = request.GET.get('q', '')
-    page = request.GET.get('page', '1')
-
+    page = request.GET.get('page', 1)
+    offset = (int(page) - 1) * 10
+    
     query = f"""
     prefix :         <http://semminds.com/data/>
     prefix class:    <http://semminds.com/class/>
@@ -30,7 +31,7 @@ def search(request):
         FILTER (contains(lcase(?company_name), lcase("{search}")) || contains(lcase(?keyword), lcase("{search}")))
     }}
     GROUP BY ?company_uri ?company_name
-    LIMIT 10 OFFSET {page}
+    LIMIT 10 OFFSET {offset}
     """
 
     params = {
