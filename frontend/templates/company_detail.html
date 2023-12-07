@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,40 +16,96 @@
     <div class="container mx-auto mt-8">
 
         <div class="bg-white p-8 shadow-md rounded-md">
-            {% if api_data %}
+            {% if api_data.0 %}
 
-            {% for result in api_data.results.bindings %}
-            <h2></h2>
-            <h1 class="text-2xl font-semibold mb-4">Company Details</h1>
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-indigo-700">{{ api_data.0.company_name.value }}</h1>
+                {% if api_data.0.industry %}
+                <p class="font-semibold text-gray-700">{{ api_data.0.industry.value }}</p>
+                {% endif %}
+                {% if api_data.0.instance %}
+                <p class="font-semibold text-gray-700">{{ api_data.0.instance.value|capfirst  }}</p>
+                {% endif %}
+                <div class="inline-flex items-center">
+                    <svg class="h-5 w-5 text-gray-600 mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path class="heroicon-ui" d="M5.64 16.36a9 9 0 1 1 12.72 0l-5.65 5.66a1 1 0 0 1-1.42 0l-5.65-5.66zm11.31-1.41a7 7 0 1 0-9.9 0L12 19.9l4.95-4.95zM12 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                    </svg>
+                    <span class="text-gray-700">{{ api_data.0.city_name.value }}, {% if api_data.0.state %} {{ api_data.0.state.value }}, {% endif %}{{ api_data.0.country_name.value }}</span>
+                </div>
 
-            <div class="grid grid-cols-2 gap-4">
+            </div>
+            <br>
+            <div class=" pb-1">
+                <div class="relative">
+                    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="max-w-4xl mx-auto">
+                            <dl class="rounded-lg bg-green-200 shadow-lg sm:grid sm:grid-cols-3">
+                                <div class="flex flex-col border-b border-gray-100 p-3 text-center sm:border-0 sm:border-r">
+                                    <dt class="order-2 mt-2 text-md leading-6 font-medium text-gray-500">
+                                        Growth Percentage
+                                    </dt>
+                                    <dd class="order-1 text-2xl font-extrabold text-gray-700">{{ api_data.0.growjo_percentage.value }}%</dd>
+                                </div>
+                                <div
+                                    class="flex flex-col border-t border-b border-gray-100 p-3 text-center sm:border-0 sm:border-l sm:border-r">
+                                    <dt class="order-2 mt-2 text-md leading-6 font-medium text-gray-500">
+                                        Previous Ranking
+                                    </dt>
+                                    <dd class="order-1 text-2xl font-extrabold text-gray-700">{{ api_data.0.rangking.value }}</dd>
+                                </div>
+                                <div class="flex flex-col border-t border-gray-100 p-3 text-center sm:border-0 sm:border-l">
+                                    <dt class="order-2 mt-2 text-md leading-6 font-medium text-gray-500">
+                                        Growjo Ranking
+                                    </dt>
+                                    <dd class="order-1 text-2xl font-extrabold text-gray-700">{{ api_data.0.growjo_rank.value }}</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="grid grid-cols-3 gap-4">
 
                 <div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-600">Company Name</label>
-                        <p class="text-lg font-semibold">{{ result.company_name.value }}</p>
-                    </div>
-
+                    
+                    {% if api_data.0.description %}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Description</label>
-                        <p>{{ result.schema.value }}</p>
+                        <p>{{ api_data.0.description.value }}</p>
                     </div>
+                    {% endif %}
 
+                    {% if api_data.0.year_founded %}
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-600">Description</label>
-                        <p>{{ result.schema.value }}</p>
+                        <label class="block text-sm font-medium text-gray-600">Founded in</label>
+                        <p>{{ api_data.0.year_founded.value }}</p>
                     </div>
+                    {% endif %}
 
+                    {% if api_data.0.founders %}
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-600">Description</label>
-                        <p>{{ result.schema.value }}</p>
+                        <label class="block text-sm font-medium text-gray-600">Founded by</label>
+                        <p>{{ api_data.0.founders.value }}</p>
                     </div>
+                    {% endif %}
 
+                    
+
+                    {% if api_data.0.works %}
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-600">Description</label>
-                        <p>{{ result.schema.value }}</p>
+                        <label class="block text-sm font-medium text-gray-600">Works</label>
+                        <p>{{ api_data.0.works.value }}</p>
                     </div>
+                    {% endif %}
+
+                    {% if api_data.0.investors_name %}   
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Lead Investors</label>
+                        <p>{{ api_data.0.investors_name.value }}</p>
+                    </div>
+                    {% endif %}
+                    
 
 
 
@@ -56,24 +113,93 @@
 
 
                 <div>
-
+                    {% if api_data.0.employee %}
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-600">Employees</label>
-                        <p>500</p>
+                        <label class="block text-sm font-medium text-gray-600">Employee</label>
+                        <p>{{ api_data.0.employee.value }}</p>
                     </div>
+                    {% endif %}
 
+                    {% if api_data.0.job_opening %}
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-600">Explore more</label>
-                        <a href="{{ result.item.value }}" class="text-blue-500">Wikidata Page</a>
+                        <label class="block text-sm font-medium text-gray-600">Job Openings</label>
+                        <p>{{ api_data.0.job_opening.value }}</p>
                     </div>
+                    {% endif %}
 
+
+                    {% if api_data.0.estimated_reveunes %}   
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Estimated Revenue</label>
+                        <p>${{ api_data.0.estimated_reveunes.value|floatformat|intcomma }}</p>
+                    </div>
+                    {% endif %}
+
+                    {% if api_data.0.valuation %}   
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Valuation</label>
+                        <p>${{ api_data.0.valuation.value|floatformat|intcomma  }}</p>
+                    </div>
+                    {% endif %}
+
+                    {% if api_data.0.funding %}   
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Funding</label>
+                        <p>{{ api_data.0.funding.value }}</p>
+                    </div>
+                    {% endif %}
+                    
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Links</p>
+                    <ul class="ml-3">
+                        <li class="my-4">
+                            <a href="https://{{ api_data.0.url.value }}" aria-label="GITHUB" target="_blank" rel="noopener" class="w-min flex items-center hover:underline bg-white px-1 py-1 rounded-md text-black transition hover:translate-x-2 hover:no-underline">
+                                <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 19 19">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.013 7.962a3.519 3.519 0 0 0-4.975 0l-3.554 3.554a3.518 3.518 0 0 0 4.975 4.975l.461-.46m-.461-4.515a3.518 3.518 0 0 0 4.975 0l3.553-3.554a3.518 3.518 0 0 0-4.974-4.975L10.3 3.7"/>
+                                </svg>
+                                <span class="ml-2">Website</span>
+                            </a>
+                        </li>
+                        <li class="my-4">
+                            <a href="{{ api_data.0.product_url.value }}" aria-label="LINKEDIN" target="_blank" rel="noopener" class="w-min flex items-center hover:underline bg-white px-1 py-1 rounded-md text-black transition hover:translate-x-2 hover:no-underline">
+                                <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                                    <path d="M19 0H1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1ZM2 6v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6H2Zm11 3a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0h2a1 1 0 0 1 2 0v1Z"/>
+                                </svg>
+                                    
+                                <span class="ml-2">Product</span>
+                            </a>
+                        </li>
+                        <li class="my-4">
+                            <a href="{{ api_data.0.linkedin.value }}" aria-label="LINKEDIN" target="_blank" rel="noopener" class="w-min flex items-center hover:underline bg-white px-1 py-1 rounded-md text-black transition hover:translate-x-2 hover:no-underline">
+                                <svg class="w-6 h-6 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 15 15">
+                                    <path fill-rule="evenodd" d="M7.979 5v1.586a3.5 3.5 0 0 1 3.082-1.574C14.3 5.012 15 7.03 15 9.655V15h-3v-4.738c0-1.13-.229-2.584-1.995-2.584-1.713 0-2.005 1.23-2.005 2.5V15H5.009V5h2.97ZM3 2.487a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" clip-rule="evenodd"/>
+                                    <path d="M3 5.012H0V15h3V5.012Z"/>
+                                </svg>
+                                    
+                                <span class="ml-2">LinkedIn</span>
+                            </a>
+                        </li>
+                        
+                        <li class="my-4">
+                            <a href="{{ api_data.0.indeed_url.value }}" aria-label="LINKEDIN" target="_blank" rel="noopener" class="w-min flex items-center hover:underline bg-white px-1 py-1 rounded-md text-black transition hover:translate-x-2 hover:no-underline">
+                                <svg class="w-6 h-6 text-gray-800" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg">
+                
+                                    <path d="M14.822 10.308a3.018 3.018 0 111.32-4.038 3.006 3.006 0 01-1.32 4.044zM11.6.572c2.47-.901 5.294-.852 7.408.982a3.587 3.587 0 011.023 1.37c.213.69-.749-.07-.88-.168a9.407 9.407 0 00-2.15-1.095C12.837.386 8.897 2.707 6.463 6.316a19.505 19.505 0 00-2.248 5.126 2.918 2.918 0 01-.213.642c-.107.204-.049-.547-.049-.572a15.821 15.821 0 01.43-2.239C5.511 5.34 8.01 2.065 11.6.565zm.037 20.993v-8.763c.249.025.486.037.736.037a6.167 6.167 0 003.219-.895v9.62c0 .822-.15 1.43-.52 1.826A1.874 1.874 0 0113.62 24a1.825 1.825 0 01-1.427-.609c-.368-.404-.56-1.013-.56-1.825z"></path>
+                            
+                                </svg>
+                                    
+                                <span class="ml-2">Indeed</span>
+                            </a>
+                        </li>
+                        
+                    </ul>
                 </div>
 
             </div>
             
-            {% endfor %}
             
-
+            
             {% else %}
                 <h1 class="text-2xl font-semibold mb-4">Invalid Page</h1>
 
