@@ -135,3 +135,11 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# Collected static files
+staticfiles/
+
+#nodejs
+/node_modules
+package-lock.json
+package.json
