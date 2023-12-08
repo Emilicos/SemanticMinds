@@ -136,12 +136,20 @@ def item(request, uri):
         OPTIONAL {{ :{uri} property:estimated_revenues ?estimated_reveunes . }}
         OPTIONAL {{ :{uri} property:employees ?employee . }}
         OPTIONAL {{
-            :{uri} property:city ?city_uri .
-            ?city_uri rdfs:label  ?city_name .
+            {{
+                :{uri} property:city ?city_uri .
+                ?city_uri rdfs:label  ?city_name .
+            }} OPTIONAL {{
+                ?city_uri owl:sameAs ?city_wiki .
+            }}
         }}
         OPTIONAL {{
-            :{uri} property:country ?country_uri .
-            ?country_uri rdfs:label  ?country_name .
+            {{
+                :{uri} property:country ?country_uri .
+                ?country_uri rdfs:label  ?country_name .
+            }} OPTIONAL {{
+                ?country_uri owl:sameAs ?country_wiki .
+            }}  
         }}
     }}
     OPTIONAL
