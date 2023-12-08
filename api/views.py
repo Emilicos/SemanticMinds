@@ -41,7 +41,11 @@ def search(request):
         "query": query,
         "format":"json"
     }
-    r = requests.post(BASE_URL, params=params).json()
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+    }
+    r = requests.post(BASE_URL, params=params, headers=headers).json()
     
     # Currently still havent found the best way to do this, but this works for now (pagination related)
     
@@ -70,7 +74,10 @@ def search(request):
         "format":"json"
     }
     
-    r_pagination = requests.post(BASE_URL, params=pagination_params).json()
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+    }
+    r_pagination = requests.post(BASE_URL, params=pagination_params, headers=headers).json()
     
     # print(r)
     # print(query)
@@ -208,5 +215,9 @@ def item(request, uri):
         "query": query,
         "format":"json"
     }
-    r = requests.post(BASE_URL, params=params).json()
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+    }
+    r = requests.post(BASE_URL, params=params, headers=headers).json()
     return JsonResponse(r["results"]["bindings"], safe=False)
