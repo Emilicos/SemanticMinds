@@ -29,7 +29,7 @@
             {% if api_data.0 %}
             
             <div class="text-center">
-                <h1 class="text-4xl font-bold text-indigo-700">{{ api_data.0.company_name.value }}</h1>
+                <a class="text-4xl font-bold text-indigo-700 cursor-pointer" href={{api_data.0.item_uri.value}}>{{ api_data.0.company_name.value }}</a>
                 {% if api_data.0.industry %}
                 <p class="font-semibold text-gray-700">{{ api_data.0.industry.value }}</p>
                 {% endif %}
@@ -40,7 +40,7 @@
                     <svg class="h-5 w-5 text-gray-600 mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                         <path class="heroicon-ui" d="M5.64 16.36a9 9 0 1 1 12.72 0l-5.65 5.66a1 1 0 0 1-1.42 0l-5.65-5.66zm11.31-1.41a7 7 0 1 0-9.9 0L12 19.9l4.95-4.95zM12 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
                     </svg>
-                    <span class="text-gray-700"><a href="{{ api_data.0.city_wiki.value }}">{{ api_data.0.city_name.value }}</a>, {% if api_data.0.state %} {{ api_data.0.state.value }}, {% endif %}<a href="{{ api_data.0.country_wiki.value }}">{{ api_data.0.country_name.value }}</a></span>
+                    <span class="text-gray-700"><a class="cursor-pointer font-bold" href="{{ api_data.0.city_wiki.value }}">{{ api_data.0.city_name.value }}</a>, {% if api_data.0.state %} {{ api_data.0.state.value }}, {% endif %}<a  class="cursor-pointer font-bold" href="{{ api_data.0.country_wiki.value }}">{{ api_data.0.country_name.value }}</a></span>
                 </div>
 
             </div>
