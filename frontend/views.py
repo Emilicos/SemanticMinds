@@ -4,7 +4,7 @@ import requests
 
 # Create your views here.
 
-API_URL = "http://localhost:8000/api"
+API_URL = "http://localhost:80/api"
 
 def homepage(request):
     return render(request, 'home_page.html')

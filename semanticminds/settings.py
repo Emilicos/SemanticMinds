@@ -33,7 +33,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-PRODUCTION = True if env('ENVIRONMENT').lower() == 'production' else False
+# PRODUCTION = True if env('ENVIRONMENT').lower() == 'production' else False
+PRODUCTION = True
 
 DEVELOPMENT_API_URL = 'http://localhost:9999/blazegraph/namespace/kb/sparql'
 PRODUCTION_API_URL = 'http://localhost:9999/blazegraph/namespace/kb/sparql'
