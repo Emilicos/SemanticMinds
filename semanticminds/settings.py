@@ -39,7 +39,7 @@ BACKEND_DEVELOPMENT_API_URL = 'http://localhost:9999/blazegraph/namespace/kb/spa
 BACKEND_PRODUCTION_API_URL = 'http://104.155.149.82:80/blazegraph/namespace/kb/sparql'
 
 FRONTEND_DEVELOPMENT_API_URL = 'http://localhost:8000/api'
-FRONTEND_PRODUCTION_API_URL = 'http://semminds.pythonanywhere.com'
+FRONTEND_PRODUCTION_API_URL = 'http://semminds.pythonanywhere.com/api'
 
 BACKEND_API_URL = BACKEND_PRODUCTION_API_URL if PRODUCTION else BACKEND_DEVELOPMENT_API_URL
 FRONTEND_API_URL = FRONTEND_PRODUCTION_API_URL if PRODUCTION else FRONTEND_DEVELOPMENT_API_URL
