@@ -30,7 +30,7 @@
                     <svg class="h-5 w-5 text-gray-600 mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                         <path class="heroicon-ui" d="M5.64 16.36a9 9 0 1 1 12.72 0l-5.65 5.66a1 1 0 0 1-1.42 0l-5.65-5.66zm11.31-1.41a7 7 0 1 0-9.9 0L12 19.9l4.95-4.95zM12 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
                     </svg>
-                    <span class="text-gray-700">{{ api_data.0.city_name.value }}, {% if api_data.0.state %} {{ api_data.0.state.value }}, {% endif %}{{ api_data.0.country_name.value }}</span>
+                    <span class="text-gray-700"><a href="{{ api_data.0.city_wiki.value }}">{{ api_data.0.city_name.value }}</a>, {% if api_data.0.state %} {{ api_data.0.state.value }}, {% endif %}<a href="{{ api_data.0.country_wiki.value }}">{{ api_data.0.country_name.value }}</a></span>
                 </div>
 
             </div>
@@ -69,42 +69,50 @@
 
                 <div>
                     
-                    {% if api_data.0.description %}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Description</label>
+                        {% if api_data.0.description.value %}
                         <p>{{ api_data.0.description.value }}</p>
+                        {% else %}
+                        <p>N/A</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
 
-                    {% if api_data.0.year_founded %}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Founded in</label>
+                        {% if api_data.0.year_founded.value %}
                         <p>{{ api_data.0.year_founded.value }}</p>
+                        {% else %}
+                        <p>N/A</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
 
-                    {% if api_data.0.founders %}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Founded by</label>
+                        {% if api_data.0.founders.value %}
                         <p>{{ api_data.0.founders.value }}</p>
+                        {% else %}
+                        <p>N/A</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
 
-                    
-
-                    {% if api_data.0.works %}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Works</label>
+                        {% if api_data.0.works.value %}
                         <p>{{ api_data.0.works.value }}</p>
+                        {% else %}
+                        <p>N/A</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
 
-                    {% if api_data.0.investors_name %}   
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Lead Investors</label>
+                        {% if api_data.0.investors_name.value %}
                         <p>{{ api_data.0.investors_name.value }}</p>
+                        {% else %}
+                        <p>N/A</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
                     
 
 
@@ -113,41 +121,50 @@
 
 
                 <div>
-                    {% if api_data.0.employee %}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Employee</label>
+                        {% if api_data.0.employee.value %}
                         <p>{{ api_data.0.employee.value }}</p>
+                        {% else %}
+                        <p>N/A</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
 
-                    {% if api_data.0.job_opening %}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Job Openings</label>
+                        {% if api_data.0.job_opening.value %}
                         <p>{{ api_data.0.job_opening.value }}</p>
+                        {% else %}
+                        <p>N/A</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
 
-
-                    {% if api_data.0.estimated_reveunes %}   
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Estimated Revenue</label>
+                        {% if api_data.0.estimated_reveunes.value %}
                         <p>${{ api_data.0.estimated_reveunes.value|floatformat|intcomma }}</p>
+                        {% else %}
+                        <p>N/A</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
 
-                    {% if api_data.0.valuation %}   
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Valuation</label>
-                        <p>${{ api_data.0.valuation.value|floatformat|intcomma  }}</p>
+                        {% if api_data.0.valuation.value %}
+                        <p>${{ api_data.0.valuation.value|floatformat|intcomma }}</p>
+                        {% else %}
+                        <p>N/A</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
 
-                    {% if api_data.0.funding %}   
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Funding</label>
+                        {% if api_data.0.funding.value %}
                         <p>{{ api_data.0.funding.value }}</p>
+                        {% else %}
+                        <p>N/A</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
                     
                 </div>
                 <div>
