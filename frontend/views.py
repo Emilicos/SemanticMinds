@@ -18,19 +18,13 @@ def searchpage(request):
         "page": page
     }
 
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
-    }
-    response = requests.get(f'{API_URL}/search/', params=params, headers=headers)
+    response = requests.get(f'{API_URL}/search/', params=params)
     context = {'api_data': response.json()['data'], 'pagination': response.json()['pagination'], 'range': range(1, response.json()['pagination']['last_page']+1), 'search': search}
     
     return render(request, 'search_page.html', context)
 
 def companyDetail(request, uri):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
-    }
-    response = requests.get(f'{API_URL}/data/{uri}', headers=headers)
+    response = requests.get(f'{API_URL}/data/{uri}')
     context = {'api_data': response.json()}
 
     return render(request, 'company_detail.html', context)
