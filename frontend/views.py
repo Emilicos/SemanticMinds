@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 import requests
 
+from semanticminds.settings import FRONTEND_API_URL
+
 # Create your views here.
 
-API_URL = "http://localhost:8000/api"
+API_URL = FRONTEND_API_URL
 
 def homepage(request):
     return render(request, 'home_page.html')
