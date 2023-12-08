@@ -1,18 +1,42 @@
-<nav class="bg-gray-800 p-4">
-    <div class="container mx-auto flex items-center justify-between">
-        <a href="{% url 'searchPage' %}" class="text-white text-lg font-semibold">SemanticMinds</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-        <div class="relative">
-            <input type="text" class="bg-gray-700 text-white rounded-full py-2 px-4 pl-10 focus:outline-none focus:shadow-outline"
-                placeholder="Search...">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-4.35-4.35a8 8 0 1 0-1.4 1.4L21 21zm-2-2L15.5 15.5a6 6 0 1 1 1.4-1.4L19 19z"></path>
-                </svg>
-            </span>
+<nav class="bg-gray-800 p-4 w-full">
+    <div class="container mx-auto flex items-center justify-between gap-4">
+        <a href="{% url 'homepage' %}" class="text-white text-lg font-semibold">SemanticMinds</a>
+        
+        <div class="relative h-fit">
+
+            <form action="return false;" id="searchForm" class="flex items-center h-fit mb-0">
+                <div class="flex items-center gap-x-4 w-full max-w-4xl relative h-fit">
+                    <input
+                    type="text"
+                    name="searchInput"
+                    id="searchInput"
+                    class="w-full py-3 pl-4 pr-8 text-white placeholder-white bg-slate-700 border-2 border-slate-300 rounded-xl"
+                    required="false"
+                    placeholder="Search for a company"
+                    />
+                    <button type="submit" class = "relative right-0 top-0">
+                        <!-- <i class="fa-solid fa-magnifying-glass absolute right-0 top-[-8px] mr-8 text-[#8ab4f8] cursor-pointer"></i> -->
+                        <svg class="w-6 h-6 text-[#8ab4f8] absolute top-1/2 -translate-y-1/2 right-5 sm:right-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
         </div>
 
     </div>
 </nav>
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        var searchValue = document.getElementById('searchInput').value;
+        
+        var redirectURL = window.location.origin + '/search?q=' + encodeURIComponent(searchValue);
+        
+        window.location.href = redirectURL;
+    });
+</script>
