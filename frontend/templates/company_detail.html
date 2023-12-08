@@ -1,5 +1,10 @@
 {% load static %}
 {% load humanize %}
+
+{% block framework %}
+  <script src="https://cdn.tailwindcss.com"></script>
+{% endblock %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +18,14 @@
 <body class="bg-gray-100">
     {% include 'navbar.html' %}
 
-    <div class="container mx-auto mt-8">
+    <div class="container mx-auto mt-8 p-4">
 
         <div class="bg-white p-8 shadow-md rounded-md">
+            <button onclick="history.back()" class="flex flex-row gap-x-2 items-center">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.05005 13.5C2.05005 13.7485 2.25152 13.95 2.50005 13.95C2.74858 13.95 2.95005 13.7485 2.95005 13.5L2.95005 1.49995C2.95005 1.25142 2.74858 1.04995 2.50005 1.04995C2.25152 1.04995 2.05005 1.25142 2.05005 1.49995L2.05005 13.5ZM8.4317 11.0681C8.60743 11.2439 8.89236 11.2439 9.06809 11.0681C9.24383 10.8924 9.24383 10.6075 9.06809 10.4317L6.58629 7.94993L14.5 7.94993C14.7485 7.94993 14.95 7.74846 14.95 7.49993C14.95 7.2514 14.7485 7.04993 14.5 7.04993L6.58629 7.04993L9.06809 4.56813C9.24383 4.39239 9.24383 4.10746 9.06809 3.93173C8.89236 3.75599 8.60743 3.75599 8.4317 3.93173L5.1817 7.18173C5.00596 7.35746 5.00596 7.64239 5.1817 7.81812L8.4317 11.0681Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                <p>Go back</p>
+            </button>
+
             {% if api_data.0 %}
 
             <div class="text-center">
@@ -65,8 +75,8 @@
                 </div>
             </div>
             <br>
-            <div class="grid grid-cols-3 gap-4">
-
+            <div class="grid grid-cols-1 items-start place-items-center md:grid-cols-3 gap-4 w-full mt-6 md:px-4 lg:px-6">
+                
                 <div>
                     
                     {% if api_data.0.description %}
@@ -112,7 +122,7 @@
                 </div>
 
 
-                <div>
+                <div class="w-full">
                     {% if api_data.0.employee %}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Employee</label>
@@ -150,15 +160,15 @@
                     {% endif %}
                     
                 </div>
-                <div>
+                <div class="w-full">
                     <p class="text-sm font-medium text-gray-600">Links</p>
-                    <ul class="ml-3">
+                    <ul class="">
                         <li class="my-4">
                             <a href="https://{{ api_data.0.url.value }}" aria-label="GITHUB" target="_blank" rel="noopener" class="w-min flex items-center hover:underline bg-white px-1 py-1 rounded-md text-black transition hover:translate-x-2 hover:no-underline">
-                                <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 19 19">
+                                <svg class="w-5 h-5 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 19 19">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.013 7.962a3.519 3.519 0 0 0-4.975 0l-3.554 3.554a3.518 3.518 0 0 0 4.975 4.975l.461-.46m-.461-4.515a3.518 3.518 0 0 0 4.975 0l3.553-3.554a3.518 3.518 0 0 0-4.974-4.975L10.3 3.7"/>
                                 </svg>
-                                <span class="ml-2">Website</span>
+                                <span class="ml-2 text-sm font-medium text-gray-600">Website</span>
                             </a>
                         </li>
                         <li class="my-4">
@@ -167,7 +177,7 @@
                                     <path d="M19 0H1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1ZM2 6v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6H2Zm11 3a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0h2a1 1 0 0 1 2 0v1Z"/>
                                 </svg>
                                     
-                                <span class="ml-2">Product</span>
+                                <span class="ml-2 text-sm font-medium text-gray-600">Product</span>
                             </a>
                         </li>
                         <li class="my-4">
@@ -177,7 +187,7 @@
                                     <path d="M3 5.012H0V15h3V5.012Z"/>
                                 </svg>
                                     
-                                <span class="ml-2">LinkedIn</span>
+                                <span class="ml-2 text-sm font-medium text-gray-600">LinkedIn</span>
                             </a>
                         </li>
                         
@@ -189,7 +199,7 @@
                             
                                 </svg>
                                     
-                                <span class="ml-2">Indeed</span>
+                                <span class="ml-2 text-sm font-medium text-gray-600">Indeed</span>
                             </a>
                         </li>
                         

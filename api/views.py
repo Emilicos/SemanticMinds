@@ -1,11 +1,13 @@
 from django.http import JsonResponse
 import requests
 
+from semanticminds.settings import API_URL
+
 # Create your views here.
 
 # BASE_URL = "http://35.225.49.109:80/blazegraph/namespace/kb/sparql"
-BASE_URL = "http://localhost:9999/blazegraph/namespace/kb/sparql"
-
+# BASE_URL = "http://localhost:9999/blazegraph/namespace/kb/sparql"
+BASE_URL = API_URL
 # Getting search result with format
 # <BASE-URL>/search/?q=<KEYWORD>&page=<NO-OF-PAGE>
 def search(request):

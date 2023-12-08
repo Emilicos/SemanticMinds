@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+env = environ.Env()
+
+# Specify the path to the .env file in the root folder
+env.read_env(str(Path(__file__).resolve().parent.parent / '.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +33,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+PRODUCTION = True if env('ENVIRONMENT').lower() == 'production' else False
+
+DEVELOPMENT_API_URL = 'http://localhost:9999/blazegraph/namespace/kb/sparql'
+PRODUCTION_API_URL = 'http://35.225.49.109:80/blazegraph/namespace/kb/sparql'
+
+API_URL = PRODUCTION_API_URL if PRODUCTION else DEVELOPMENT_API_URL
 
 # Application definition
 
