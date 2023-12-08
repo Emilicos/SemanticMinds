@@ -22,7 +22,7 @@ def searchpage(request):
     context = {'api_data': response.json()['data'], 'pagination': response.json()['pagination'], 'range': range(1, response.json()['pagination']['last_page']+1), 'search': search}
     
     # print(context['pagination'])
-    print(response.json())
+    # print(response.json())
     return render(request, 'search_page.html', context)
 
 def companyDetail(request, uri):
